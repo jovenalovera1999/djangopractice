@@ -1,0 +1,70 @@
+{% extends "layout/base.html" %}
+
+{% block title %} Create User {% endblock title %}
+
+{% block content %}
+
+{% include "include/navbar.html" %}
+
+<form action="/user_store" method="post" class="col-md-4 mx-auto mt-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="first_name" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ post_data.first_name }}" />
+        {% if first_name_required %} <p class="text-danger">{{ first_name_required }}</p> {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="middle_name" class="form-label">Middle Name</label>
+        <input type="text" class="form-control" id="middle_name" name="middle_name" value="{{ post_data.middle_name }}" />
+    </div>
+    <div class="mb-3">
+        <label for="last_name" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ post_data.last_name }}" />
+        {% if last_name_required %} <p class="text-danger">{{ last_name_required }}</p> {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="age" class="form-label">Age</label>
+        <input type="text" class="form-control" id="age" name="age" value="{{ post_data.age }}" />
+        {% if age_required %} <p class="text-danger">{{ age_required }}</p> {% endif %}
+        {% if age_numeric %} <p class="text-danger">{{ age_numeric }}</p> {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="gender_id">Gender</label>
+        <select class="form-select" id="gender_id" name="gender_id">
+            <option value="">Select Gender...</option>
+            {% for gender in genders  %}
+                <option value="{{ gender.gender_id }}">{{ gender.gender }}</option>
+                {% if post_data.gender_id == gender.gender_id %}
+                    <option value="{{ gender.gender_id }}" selected hidden>{{ gender.gender }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        {% if gender_id_required %} <p class="text-danger">{{ gender_id_required }}</p> {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="birth_date" class="form-label">Birth Date</label>
+        <input type="date" class="form-control" id="birth_date" name="birth_date" value="{{ post_data.birth_date }}" />
+        {% if birth_date_required %} <p class="text-danger">{{ birth_date_required }}</p> {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{ post_data.username }}" />
+        {% if username_required %} <p class="text-danger">{{ username_required }}</p> {% endif %}
+        {% if username_exists %} <p class="text-danger">{{ username_exists }}</p> {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" />
+        {% if password_required %} <p class="text-danger">{{ password_required }}</p> {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="confirm_password" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirm_password" name="confirm_password" />
+        {% if confirm_password_required %} <p class="text-danger">{{ confirm_password_required }}</p> {% endif %}
+        {% if password_mismatch %} <p class="text-danger">{{ password_mismatch }}</p> {% endif %}
+    </div>
+    <button type="submit" class="btn btn-success float-end col-md-5">Save</button>
+    <a href="/users" class="btn btn-secondary float-end col-md-5 me-1">Back</a>
+</form>
+
+{% endblock content %}

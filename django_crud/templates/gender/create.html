@@ -1,0 +1,20 @@
+{% extends "layout/base.html" %}
+
+{% block title %} Create Gender {% endblock title %}
+
+{% block content %}
+
+{% include "include/navbar.html" %}
+
+<form action="/gender_store" method="post" class="col-md-4 mx-auto mt-3">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="gender" class="form-label">Gender</label>
+        <input type="text" class="form-control" id="gender" name="gender" />
+        {% if error_gender_field %} <p class="text-danger">{{ error_gender_field }}</p> {% endif %}
+    </div>
+    <button type="submit" class="btn btn-success float-end col-md-5">Save</button>
+    <a href="/genders" class="btn btn-secondary float-end col-md-5 me-1">Back</a>
+</form>
+
+{% endblock content %}

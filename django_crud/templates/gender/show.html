@@ -1,0 +1,17 @@
+{% extends "layout/base.html" %}
+
+{% block title %} View Gender {% endblock title %}
+
+{% block content %}
+
+{% include "include/navbar.html" %}
+
+<form action="#" method="post" class="col-md-4 mx-auto mt-3">
+    <div class="mb-3">
+        <label for="gender" class="form-label">Gender</label>
+        <input type="text" class="form-control" id="gender" name="gender" value="{{ gender.gender }}" readonly />
+    </div>
+    <a href="/genders" class="btn btn-secondary float-end col-md-5">Back</a>
+</form>
+
+{% endblock content %}
